@@ -13,7 +13,7 @@ int main() {
     const int length = SIZE / sizeof(int);
     std::vector<int> data(length);
 
-    // Initialize vector
+    // Fill the vector with numbers from 0 to length
     for (int i = 0; i < length; i++) {
         data[i] = i;
     }

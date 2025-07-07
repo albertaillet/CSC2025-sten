@@ -22,7 +22,7 @@ git clone https://github.com/Stoneandbeach/CSC2025.git
     - `cd CSC2025`
 - run CMake to compile the various programs of the exercises
 	- `cmake -B build` (this creates build configuration files in the *build/* directory)
-	- `cmake --build build` (this compiles the programs into executable files in the *build/* directory. Note: you'll need to rerun this step each time you've made changes to the code)
+	- `cmake --build build` (this compiles the programs into executable files in the *build/* directory. **Note:** you'll need to rerun this step each time you've made changes to the code)
 - note that when running a program in the local directory, the LXPLUS Linux system requires you to specify this by adding "./" in front of the file name
     - `./your_program`
 - if needed, cancel a running program by pressing CTRL + C
@@ -30,7 +30,7 @@ git clone https://github.com/Stoneandbeach/CSC2025.git
     - `nano file_to_edit.cpp`
     - **Nano** is fairly straight-forward, but some shortcuts might be different compared to what you're used to. A cheat sheet for **Nano** is found here: [Nano cheat sheet](https://www.nano-editor.org/dist/latest/cheatsheet.html)
 
-Each exercise corresponds to one or more programs in the *src/* folder. Note: for **Exercise 1.0**, don't read the code before running the exercise or you might get the answers spoiled!
+Each exercise corresponds to one or more programs in the *src/* folder. **Note:** for **Exercise 1.0**, don't read the code before running the exercise or you might get the answers spoiled!
 
 ## Catch2 ##
 
@@ -104,7 +104,7 @@ Coming up are exercises on algorithmic complexity (*ex1.\**) and memory access p
 
 ## Exercise 1.0 - Scaling
 
-> Note! The code for this exercise contains spoilers! Do not read it until you're ready to get answers.
+> **Note:** the code for this exercise contains spoilers! Do not read it until you're ready to get answers.
 > Related code:
 > - *src/ex1.0_scaling.cpp*
 > - *src/algorithms/ex1.0_algorithms.cpp*

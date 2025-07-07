@@ -4,28 +4,25 @@
 #include <vector>
 
 // Basic parameter setup
-#define SIZE 64 // size of the vector in bytes
+#define SIZE 64 // size of the vector in bytes. If you make it bigger than 2 GB, you might break the code...
 #define STEPS 1000000000 // 10 billion, number of steps of the timing loop
-
-// Data type to use for vector elements
-using Type = int;
 
 int main() {
 
     // Calculate the required vector length to get SIZE bytes
-    const long length = SIZE / sizeof(Type);
-    std::vector<Type> data(length);
+    const int length = SIZE / sizeof(int);
+    std::vector<int> data(length);
 
     // Initialize vector
-    for (long i = 0; i < length; i++) {
-        data[i] = (Type)i;
+    for (int i = 0; i < length; i++) {
+        data[i] = i;
     }
 
     // Fisher-Yates shuffle the array
     // This swaps each element i of the vector with some element j in [i, length - 1],
     // effectively producing a randomly shuffled vector.
-    Type temp;
-    for (long i = 0; i < length; i++) {
+    int temp;
+    for (int i = 0; i < length; i++) {
         int j = i + rand() % (length - i);
         temp = data[i];
         data[i] = data[j];
@@ -34,7 +31,7 @@ int main() {
 
     // Measure the time required to make STEPS number of pseudo-random vector accesses.
     auto start = std::chrono::high_resolution_clock::now();
-    Type sum = 0;
+    int sum = 0;
     int pseudorandom_index;
     for (long steps_taken = 0; steps_taken < STEPS; steps_taken++) {
         pseudorandom_index = data[steps_taken % length];
@@ -43,7 +40,7 @@ int main() {
     auto stop = std::chrono::high_resolution_clock::now();
 
     // Print out stats of the run
-    std::cout << "Array size: " << data.size() * sizeof(Type) << " bytes." << std::endl;
+    std::cout << "Array size: " << data.size() * sizeof(int) << " bytes." << std::endl;
     std::cout << "Steps taken: " << STEPS << std::endl;
     
     auto elapsed = std::chrono::duration_cast<std::chrono::nanoseconds>(stop - start);

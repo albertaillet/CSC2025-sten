@@ -180,10 +180,10 @@ Suggestions for the exercise:
 - How does the code achieve pseudo-random vector accesses? Why is this cache unfriendly?
 - Run *build/ex2.0* and study the output.
 - Use `perf` to gather statistics on *build/ex2.0*. Record L1 dcache loads and misses for a range of vector sizes, by changing the *SIZE* `#define` and recompiling.
-- Plot the trend of the fraction of L1 dcache loads that miss as a function of the vector size in bytes.
+- Plot the trend of the fraction of L1 dcache loads that miss as a function of the vector size in bytes. How and why do the L1 cache misses depend on the vector size?
 - Similarly, plot the trend of the time required per step of the loop as a function of vector size.
 
 > Can you determine the size of the L1 data cache on your machine?  
-> The runtime does not follow the same trend. When does it start to change? Why?
+> The runtime does not follow the same trend as the cache misses. When does it start to change? Why?
 
 **Hint:** once you have your results, you can run `getconf -a | grep CACHE` to see the properties of the cache on your machine.

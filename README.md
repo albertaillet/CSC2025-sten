@@ -22,6 +22,9 @@ Before you start, you need to set up your working environment on LXPLUS, the CER
 - note that when running a program in the local directory, the LXPLUS Linux system requires you to specify this by adding "./" in front of the file name
     - `./your_program`
 - if needed, cancel a running program by pressing CTRL + C
+- to edit files on LXPLUS, you can use for example the **Nano** or **Vim** text editors
+    - `nano file_to_edit.cpp`
+    - **Nano** is fairly straight-forward, but some shortcuts might be different compared to what you're used to. A cheat sheet for **Nano** is found here: [Nano cheat sheet](https://www.nano-editor.org/dist/latest/cheatsheet.html)
 
 Each exercise corresponds to one or more programs in the *src/* folder. Note: for **Exercise 1.0**, don't read the code before running the exercise or you might get the answers spoiled!
 

@@ -1,0 +1,58 @@
+#include <chrono>
+#include <cstdlib>
+#include <iostream>
+#include <vector>
+
+// Basic parameter setup
+#define SIZE 64 // size of the vector in bytes
+#define STEPS 1000000000 // 10 billion, number of steps of the timing loop
+
+// Data type to use for vector elements
+using Type = int;
+
+int main() {
+
+    // Calculate the required vector length to get SIZE bytes
+    const long length = SIZE / sizeof(Type);
+    std::vector<Type> data(length);
+
+    // Initialize array
+    for (long i = 0; i < length; i++) {
+        data[i] = (Type)i;
+    }
+
+    // Fisher-Yates shuffle the array
+    // This swaps each element i of the vector with some element j in [i, length - 1],
+    // effectively producing a randomly shuffled vector.
+    Type temp;
+    for (long i = 0; i < length; i++) {
+        int j = i + rand() % (length - i);
+        temp = data[i];
+        data[i] = data[j];
+        data[j] = temp;
+    }
+
+    // Measure the time required to make STEPS number of pseudo-random vector accesses.
+    auto start = std::chrono::high_resolution_clock::now();
+    Type sum = 0;
+    for (long steps_taken = 0; steps_taken < STEPS; steps_taken++) {
+        sum += data[data[steps_taken % length]];
+    }
+    auto stop = std::chrono::high_resolution_clock::now();
+
+    // Print out stats of the run
+    std::cout << "Array size: " << data.size() * sizeof(Type) << " bytes." << std::endl;
+    std::cout << "Steps taken: " << STEPS << std::endl;
+    
+    auto elapsed = std::chrono::duration_cast<std::chrono::nanoseconds>(stop - start);
+    std::cout << "Elapsed time: " << elapsed.count() / 1e9 << " s." << std::endl;
+    
+    float per_step = (float)elapsed.count() / STEPS;
+    std::cout << "Per step: " << per_step << " ns." << std::endl;
+
+    // Printing out the sum of all the vector accesses (even though the number is nonsense)
+    // prevents the compiler from optimizing away the timing loop.
+    std::cout << "Sum: " << sum << std::endl;
+
+    return 0;
+}

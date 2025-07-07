@@ -16,7 +16,7 @@ int main() {
     const long length = SIZE / sizeof(Type);
     std::vector<Type> data(length);
 
-    // Initialize array
+    // Initialize vector
     for (long i = 0; i < length; i++) {
         data[i] = (Type)i;
     }
@@ -35,8 +35,10 @@ int main() {
     // Measure the time required to make STEPS number of pseudo-random vector accesses.
     auto start = std::chrono::high_resolution_clock::now();
     Type sum = 0;
+    int pseudorandom_index;
     for (long steps_taken = 0; steps_taken < STEPS; steps_taken++) {
-        sum += data[data[steps_taken % length]];
+        pseudorandom_index = data[steps_taken % length];
+        sum += data[pseudorandom_index];
     }
     auto stop = std::chrono::high_resolution_clock::now();
 

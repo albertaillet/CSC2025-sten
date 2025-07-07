@@ -93,7 +93,7 @@ Now we'll use **Catch2** to set up a more advanced benchmark. In **Exercise 0.0*
 **BENCHMARK_ADVANCED** can be seen as having two parts; some setup code will be run first, and then the code that will be benchmarked. In addition to a benchmark name, **BENCHMARK_ADVANCED** takes a timing object as input. For that we will be using an instance of the `Catch::Benchmark::Chronometer` class, which we can simply name `timer`. The code in the `{ }` block of the `timer.measure` method is what is actually timed by the **BENCHMARK_ADVANCED**. Technically, the whole content of the `timer.measure` parenthesis `( )` is a lambda function. The `[&]` indicates that this function is able to access variables from outside the `( )` by reference. This lets us use 'vect' in the timed code block.
 
 Suggestions for the exercise:
-- Like last time, familiarize yourself with the code and then run and study the results.
+- Like last time, familiarize yourself with the code and then run *build/ex0.2* and study the results.
 - Implement a new BENCHMARK_ADVANCED("Vector sum 0 to 10000") and compare results. How does `vector_sum` scale with input size?
 
 > How do the **Catch2** results compare to the results of **Exercise 0.1**? Why?
@@ -171,18 +171,19 @@ You've been given a program that behaves in a decidedly cache-unfriendly manner,
 
 `perf stat YOUR_PROGRAM` gathers a default set of statistics on your program, like runtime. There is however a lot more that `perf` can tell you. To get access to L1 cache information, you need to specify that you want to see the "events" related to L1 cache.
 
-`perf stat -e L1-dcache-loads,L1-dcache-load-misses YOUR_PROGRAM` does just that. Note that L1 cache is actually split into two parts; **dcache**, which is used for data like your vector, and **icache**, used for CPU instructions, i.e. the actual machine code translation of the program you're running. We want to study how well this program uses the **dcache**.
+`perf stat -e L1-dcache-loads,L1-dcache-load-misses YOUR_PROGRAM` records the number of times data is loaded from L1 cache, and how many times requested data is not found in L1 cache - i.e. cache hits and misses. Note that L1 cache is actually split into two parts; **dcache**, which is used for data like your vector, and **icache**, used for CPU instructions, i.e. the actual machine code translation of the program you're running. We want to study how well this program uses the **dcache**.
 
 To see the full list of statistics that perf can track, run `perf list`. There's a lot! They can however be a bit tricky to figure out what they mean (and they can mean different things on different hardware).
 
 Suggestions for the exercise:
 - Examine the code. What is it doing?
 - How does the code achieve pseudo-random vector accesses? Why is this cache unfriendly?
-- Use `perf` to gather statistics on L1 dcache loads and misses for a range of vector sizes, by changing the *SIZE* `#define` and recompiling.
+- Run *build/ex2.0* and study the output.
+- Use `perf` to gather statistics on *build/ex2.0*. Record L1 dcache loads and misses for a range of vector sizes, by changing the *SIZE* `#define` and recompiling.
 - Plot the trend of the fraction of L1 dcache loads that miss as a function of the vector size in bytes.
 - Similarly, plot the trend of the time required per step of the loop as a function of vector size.
 
-> Can you determine the size of the data cache on your machine?  
+> Can you determine the size of the L1 data cache on your machine?  
 > The runtime does not follow the same trend. When does it start to change? Why?
 
 **Hint:** once you have your results, you can run `getconf -a | grep CACHE` to see the properties of the cache on your machine.

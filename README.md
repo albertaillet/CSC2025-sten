@@ -6,7 +6,9 @@ Welcome to this exercise session! This suite of exercises comes in three chapter
 
 Before you start, you need to set up your working environment on LXPLUS, the CERN cluster service. I've compiled instructions on this below for those who aren't used to this kind of thing. You can either ssh in from a terminal window (Windows: *Command prompt*, *Powershell*; Mac, Linux: *Terminal*), or through a code editor like VSCode (though for some reason, I've had some trouble doing the latter recently).
 - ssh into LXPLUS
-    - `ssh -X USERNAME@lxplus.cern.ch`
+```
+ssh -X USERNAME@lxplus.cern.ch
+```
 - get access to the C++ compiler and the Catch2 library
 	- `source /cvmfs/sft.cern.ch/lcg/views/LCG_107a/x86_64-el9-gcc13-dbg/setup.sh`
 - optionally, create and navigate to a folder of your choosing

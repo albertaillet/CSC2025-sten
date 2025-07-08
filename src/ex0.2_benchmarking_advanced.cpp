@@ -17,14 +17,26 @@ int vector_sum(std::vector<int> &v) {
 TEST_CASE("Benchmarking Advanced") {
 
     BENCHMARK_ADVANCED("Vector sum 0 to 10 million")(Catch::Benchmark::Chronometer timer) {
-        
         // Setup code to create and fill a vector for timing vector_sum
         int length = 10000000;
         std::vector<int> vect(length);
         for (int i = 0; i < vect.size(); i++) {
             vect[i] = i;
         }
+        // Using the 'timer' object to run and time the code we want to benchmark
+        timer.measure([&] {
+            return vector_sum(vect);
+        });
+    };
 
+
+    BENCHMARK_ADVANCED("Vector sum 0 to 10000")(Catch::Benchmark::Chronometer timer) {
+        // Setup code to create and fill a vector for timing vector_sum
+        int length = 10000;
+        std::vector<int> vect(length);
+        for (int i = 0; i < vect.size(); i++) {
+            vect[i] = i;
+        }
         // Using the 'timer' object to run and time the code we want to benchmark
         timer.measure([&] {
             return vector_sum(vect);

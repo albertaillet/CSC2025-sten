@@ -216,4 +216,33 @@ Sum: -1089934592
        0.676856000 seconds user
        0.020041000 seconds sys
 ```
+With 512 bytes size:
+
+```
+>> perf stat ./build/ex2.0
+Array size: 512 bytes.
+Steps taken: 1000000000
+Elapsed time: 0.986076 s.
+Per step: 0.986076 ns.
+Sum: -924509440
+
+ Performance counter stats for './build/ex2.0':
+
+            967.57 msec task-clock:u                     #    0.971 CPUs utilized
+                 0      context-switches:u               #    0.000 /sec
+                 0      cpu-migrations:u                 #    0.000 /sec
+               127      page-faults:u                    #  131.257 /sec
+     3,110,035,503      cycles:u                         #    3.214 GHz
+       150,561,342      stalled-cycles-frontend:u        #    4.84% frontend cycles idle
+     9,002,300,823      instructions:u                   #    2.89  insn per cycle
+                                                  #    0.02  stalled cycles per insn
+     1,000,385,920      branches:u                       #    1.034 G/sec
+            21,841      branch-misses:u                  #    0.00% of all branches
+
+       0.996856161 seconds time elapsed
+
+       0.933279000 seconds user
+       0.023664000 seconds sys
+```
+
 

@@ -147,3 +147,73 @@ Algorithm 5                                    100            28     3.1136 ms
 test cases: 1 | 1 passed
 assertions: - none -
 ```
+
+Looking at the graph I think that:
+
+See graph in plot.ipynb
+
+I think that:
+- Algorithm 1 is Bubble sort O(n^2)
+- Algorithm 2 is Count instances of value in vector O(n)
+- Algorithm 3 is assign value to vector element O(1)
+- Algorithm 4 is Radix sort O(n)
+- Algorithm 5 is Heap sort O(n log n)
+
+## Ex 1.1
+
+From reading the source code in src/algorithms/ex1.1_algorithms.cpp I think that:
+
+- Algorithm 6 is 
+- Algorithm 7 is O(log n) ?
+- Algorithm 8 is O(mnk) ?
+- Algorithm 9 is 
+- Algorithm 10 is
+
+## Ex 2.0
+Before changing the program:
+```
+>> perf stat ./build/ex2.0
+Array size: 64 bytes.
+Steps taken: 1000000000
+Elapsed time: 0.945324 s.
+Per step: 0.945324 ns.
+Sum: -1089934592
+
+ Performance counter stats for './build/ex2.0':
+
+            868.56 msec task-clock:u                     #    0.900 CPUs utilized
+                 0      context-switches:u               #    0.000 /sec
+                 0      cpu-migrations:u                 #    0.000 /sec
+               129      page-faults:u                    #  148.521 /sec
+     2,572,676,729      cycles:u                         #    2.962 GHz
+        17,116,763      stalled-cycles-frontend:u        #    0.67% frontend cycles idle
+     8,002,292,755      instructions:u                   #    3.11  insn per cycle
+                                                  #    0.00  stalled cycles per insn
+     1,000,384,055      branches:u                       #    1.152 G/sec
+            20,437      branch-misses:u                  #    0.00% of all branches
+
+       0.964836372 seconds time elapsed
+
+       0.775918000 seconds user
+       0.066279000 seconds sys
+```
+For L1 cache:
+```
+>> perf stat -e L1-dcache-loads,L1-dcache-load-misses ./build/ex2.0
+Array size: 64 bytes.
+Steps taken: 1000000000
+Elapsed time: 0.718647 s.
+Per step: 0.718647 ns.
+Sum: -1089934592
+
+ Performance counter stats for './build/ex2.0':
+
+     2,001,045,179      L1-dcache-loads:u
+            32,398      L1-dcache-load-misses:u          #    0.00% of all L1-dcache accesses
+
+       0.738211415 seconds time elapsed
+
+       0.676856000 seconds user
+       0.020041000 seconds sys
+```
+

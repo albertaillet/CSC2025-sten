@@ -34,7 +34,7 @@ Each exercise corresponds to one or more programs in the *src/* folder. **Note:*
 
 ## Catch2 ##
 
-One of the benchmarking tools we'll be using it **Catch2**. I write more about how this works below, but first, a few notes on how to read the results that **Catch2** produces.
+One of the benchmarking tools we'll be using is **Catch2**. I write more about how this works below, but first, a few notes on how to read the results that **Catch2** produces.
 
 <img title="Catch2" alt="Catch2" src="./images/catch2.png" width="85%">
 
@@ -65,7 +65,7 @@ Suggestions for the exercise:
 - Read through and get familiar with the code.
 - Run *build/ex0.0* and study the results. 
 - Add a couple of **BENCHMARK**s with a different upper limits, recompile the program and run it. Does the runtime change as expected?
-- Implement a function `smarter_arithmetic_sum` that does the arithmetic sum in a more efficient manner (there is, for example, a formula...). Add a **BENCHMARK** for your smarter function and compare the results to my inefficient version. Was yours faster?
+- Implement a function `smarter_arithmetic_sum` that does the arithmetic sum in a more efficient manner. Add a **BENCHMARK** for your smarter function and compare the results to my inefficient version. Was yours faster?
 - Remove the `volatile` keyword from the original smarter_arithmetic sum and rerun. What happens? Why?
 
 > Given that the input to the arithmetic sum is *N*, what algorithmic complexity is your version, and what is mine?
@@ -93,7 +93,7 @@ Now we'll use **Catch2** to set up a more advanced benchmark. In **Exercise 0.0*
 **BENCHMARK_ADVANCED** can be seen as having two parts; some setup code will be run first, and then the code that will be benchmarked. In addition to a benchmark name, **BENCHMARK_ADVANCED** takes a timing object as input. For that we will be using an instance of the `Catch::Benchmark::Chronometer` class, which we can simply name `timer`. The code in the `{ }` block of the `timer.measure` method is what is actually timed by the **BENCHMARK_ADVANCED**. Technically, the whole content of the `timer.measure` parenthesis `( )` is a lambda function. The `[&]` indicates that this function is able to access variables from outside the `( )` by reference. This lets us use 'vect' in the timed code block.
 
 Suggestions for the exercise:
-- Like last time, familiarize yourself with the code and then run *build/ex0.2* and study the results.
+- As previously, familiarize yourself with the code and then run *build/ex0.2* and study the results.
 - Implement a new BENCHMARK_ADVANCED("Vector sum 0 to 10000") and compare results. How does `vector_sum` scale with input size?
 
 > How do the **Catch2** results compare to the results of **Exercise 0.1**? Why?
@@ -109,7 +109,7 @@ Coming up are exercises on algorithmic complexity (*ex1.\**) and memory access p
 > - *src/ex1.0_scaling.cpp*
 > - *src/algorithms/ex1.0_algorithms.cpp*
 > - *src/algorithms/ex1.0_algorithms.hpp*
-> - *src/parameters.cpp* (spoiler free)
+> - *src/parameters.hpp* (spoiler free)
 
 Below, you will find a list of five algorithms and their time complexities. You also have code implementing and benchmarking these algorithms - but you do not know which is which!
 
@@ -127,6 +127,7 @@ Suggestions for the exercise:
 - By editing the size of the input to the algorithms *N* in *src/parameters.hpp*, gather timing information on the benchmarks at several different input scales.
 - Using your favorite plotting tools, plot runtime as a function of *N* to see how the benchmarks scale. Based on this, figure out which algorithms is hiding behind each benchmark.
 - Finally, confirm by reading the code in the various files.
+- **Note:** if some algorithms start to get really slow with large *N*, you can disable them by commenting out the `#define`s in *src/parameters.hpp*. For example, commenting out `#define BENCH1` will prevent the benchmark "algorithm_1" from running.
 - See below for hints!
 
 > Which benchmark corresponds to which algorithm? Do they behave as expected, based on their time complexities?
@@ -137,7 +138,7 @@ Suggestions for the exercise:
 > - *src/ex1.1_complexity.cpp*
 > - *src/algorithms/ex1.1_algorithms.cpp*
 > - *src/algorithms/ex1.1_algorithms.hpp*
-> - *src/parameters.cpp*
+> - *src/parameters.hpp*
 
 This time, you've been given code implementing and benchmarking five new algorithms, but you don't know what they do or what their time complexity is.
 
@@ -146,7 +147,7 @@ This time, you've been given code implementing and benchmarking five new algorit
 Suggestions for the exercise:
 - Study the code in *src/algorithms/ex1.1_algorithms.cpp*.
 - You can study the setup code in *src/ex1.1_complexity.cpp* for possible additional hints.
-- Determine the time complexity of each algorithms.
+- Determine the time complexity of each algorithm.
 - Confirm by running the *build/ex1.1* benchmarks for a range of input sizes *N* and plot the results like last time.
 - See below for hints!
 
@@ -154,30 +155,29 @@ Suggestions for the exercise:
 
 ## Exercise 1 hints ##
 
-Below are a list of hints for algorithmic complexity exercises. Feel free to use them, or wait with reading them until you feel you need them!
+Below is a list of hints for the algorithmic complexity exercises. Feel free to use them, or wait with reading them until you feel you need them!
 - Playing with logarithmic scale on the axes of the plots can be a big help.
-- Normalising all the measurement points of a benchmark by the first point, so that the first point is always = 1, can make it easier to see how different algorithms scale.
+- Normalising all the measurement points of a benchmark by the first point, so that the first point is always = 1, can make it easier to see how different algorithms scale. (*p*<sub>0</sub>, *p*<sub>1</sub>, *p*<sub>2</sub> ...) &rarr; (1, *p*<sub>1</sub>/*p*<sub>0</sub>, *p*<sub>2</sub>/*p*<sub>0</sub> ...)
 - In practice, not every "computational step" is the same. Additionally, there can be different amounts of overhead to different algorithms. This means that two different *O*(*N*) algorithms might not behave the same.
 - You may need quite a large range of values of *N* to get good results, considering the previous point.
-- If some algorithms start to get really slow with large *N*, you can disable them by commenting out the `#define`s in *src/parameters.hpp*. For example, commenting out `#define BENCH1` will prevent the benchmark "algorithm_1" from running.
 
 ## Exercise 2.0 - Measuring cache size ##
 
 > Related code: *src/ex2.0_cache.cpp*
 
-You've been given a program that behaves in a decidedly cache-unfriendly manner, exhibiting bad memory access patterns while processing a vector. You can use the Linux `perf` tool in order to study how the number of L1 cache misses and the runtime of program depend on the size of the vector in bytes *N*.
+You've been given a program that behaves in a decidedly cache-unfriendly manner, exhibiting bad memory access patterns while processing a vector. You can use the Linux `perf` tool in order to study how the number of L1 cache misses and the runtime of the program depend on the size of the vector in bytes *N*.
 
 **Your task is to determine the size of the L1 data cache on your machine, using information of cache hits and misses.**
 
-`perf stat YOUR_PROGRAM` gathers a default set of statistics on your program, like runtime. There is however a lot more that `perf` can tell you. To get access to L1 cache information, you need to specify that you want to see the "events" related to L1 cache.
+`perf stat ./your_program` gathers a default set of statistics on your program, like runtime. There is however a lot more that `perf` can tell you. To get access to L1 cache information, you need to specify that you want to see the "events" related to L1 cache.
 
-`perf stat -e L1-dcache-loads,L1-dcache-load-misses YOUR_PROGRAM` records the number of times data is loaded from L1 cache, and how many times requested data is not found in L1 cache - i.e. cache hits and misses. Note that L1 cache is actually split into two parts; **dcache**, which is used for data like your vector, and **icache**, used for CPU instructions, i.e. the actual machine code translation of the program you're running. We want to study how well this program uses the **dcache**.
+`perf stat -e L1-dcache-loads,L1-dcache-load-misses ./your_program` records the number of times data is loaded from L1 cache, and how many times some requested data is not found in L1 cache - i.e. cache hits and misses. Note that L1 cache is actually split into two parts; **dcache**, which is used for data like your vector, and **icache**, used for CPU instructions, i.e. the actual machine code translation of the program you're running. We want to study how well this program uses the **dcache**.
 
 To see the full list of statistics that perf can track, run `perf list`. There's a lot! They can however be a bit tricky to figure out what they mean (and they can mean different things on different hardware).
 
 Suggestions for the exercise:
 - Examine the code. What is it doing?
-- How does the code achieve pseudo-random vector accesses? Why is this cache unfriendly?
+- How does the code achieve pseudo-random vector accesses? Why is this cache-unfriendly?
 - Run *build/ex2.0* and study the output.
 - Use `perf` to gather statistics on *build/ex2.0*. Record L1 dcache loads and misses for a range of vector sizes, by changing the *SIZE* `#define` and recompiling.
 - Plot the trend of the fraction of L1 dcache loads that miss as a function of the vector size in bytes. How and why do the L1 cache misses depend on the vector size?
